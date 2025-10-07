@@ -20,7 +20,7 @@ pipeline {
 		NEXUS_GRP_REPO = 'vpro-maven-group'
         NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
-        SONARSCANNER = 'sonarscanner'
+        SONARSCANNER = 'sonar6.2'
         registryCredential = 'ecr:us-east-1:awscreds'
         appRegistry = '688567282315.dkr.ecr.us-east-1.amazonaws.com/vprofile-app-img'
         vprofileRegistry = "https://688567282315.dkr.ecr.us-east-1.amazonaws.com"
@@ -126,6 +126,7 @@ pipeline {
             echo 'Slack Notifications.'
             slackSend channel: '#jenkinscicd',
                 color: COLOR_MAP[currentBuild.currentResult],
+                tokenCredentialId: 'slacktoken',  // updated with new token
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
